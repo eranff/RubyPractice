@@ -103,6 +103,109 @@ puts test.send input
 puts test.__send__ input
 
 #### Close look at method arguments ####
+# In ruby you have required, optional and default argument.
+# A required argument
+obj = Object.new
+def obj.one_argument(x)
+  puts "I need one argument"
+end
+# If you try obj.one_argument(1,2,3) you will get an exception
+# It is possible to write a method that takes zero or more argument using the following
+def obj.zero_or_more_args(*x)
+  puts "I take zero or more arguments"
+  p x
+end
+# In this case x is an array with the inputs
+# so for example
+obj.zero_or_more_args()
+obj.zero_or_more_args(1)
+obj.zero_or_more_args(1,2,3)
+# What if you have two required arguments and than an unknown number of arguments. You can use
+def obj.two_or_more_arg(a,b,*x)
+  puts "I require two or more arguments"
+  p a,b,x
+end
+# And for example
+obj.two_or_more_arg(1,2)
+obj.two_or_more_arg(1,2,3)
+obj.two_or_more_arg(1,2,3,4)
+# What if you have default argument. The following is an example
+def obj.one_default_arg(a,b,c=1)
+  puts "I have default argument"
+  p a,b,c
+end
+# And as an example
+obj.one_default_arg(1,2)
+obj.one_default_arg(1,2,3)
+# Ruby is smart. You can do something like
+def obj.ex1(a,b,*c,d)
+  puts "example 1"
+  p a,b,c,d
+end
+# In this case what ruby will try to do is bound the variable from the left up till the sponge veriable
+# *c and then will assign the veriables from the left and what remain will go to the spong array.
+obj.ex1(1,2,3)
+# In this case 1 ->a 2-> b 3->d and c is empty
+obj.ex1(1,2,3,4)
+# In this case 1 ->a 2-> b 4->d and c is [3]
+obj.ex1(1,2,3,4,5)
+# In this case 1 ->a 2-> b 5->d and c is [3,4]
+# In ruby the parameters assigned first to the left, than from the right and lastly to the spong. You can have only one sponge
+# parameter in your argument list
+
+#### Local Veriables ####
+# Local veriables starts with lower case letter or underscore.
+# Local veriables are scope bound. Keep in mind, Ruby supports closures!!!! So the following is legit.
+x = 5
+def obj.test1()
+  puts "x = #{x}"
+end
+obj.test1
+# If you want to protect your object and you want to prevent it from being changed you can use the the dup.
+obj.dup # creates a duplicate object that if changed will not be reflected on the original object.
+# There is another method called freeze. If you frezze an object NO ONE can change it. You can not unfreeze and object. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
