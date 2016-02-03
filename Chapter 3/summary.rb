@@ -74,6 +74,70 @@ end
 # instance is being created. So for example,
 class Ticket
   def initialize(venue,seat)
-    @ven
+    @venue = venue
+    @seat = seat
+  end
+  def venue
+    @venue
   end
 end
+# Note that the initilize method which will be called by the new method will "instantiate" two instance
+# veriables venue and seat.
+ticket = Ticket.new("MSG", "15F")
+puts ticket.venue
+
+# Setter Methods #
+# We can create setter methods for every veriable but this might be very non-intatuive. Having something
+# like set this or set that. We can use the = sign to create an assignment method.
+class Ticket1
+  def initialize(venue,seat)
+    @venue = venue
+    @seat = seat
+  end
+  def seat=(seat)
+    @seat = seat
+  end
+  def venue=(venue)
+    @venue = venue
+  end
+  def venue
+    @venue
+  end
+end
+# We can now easily set the venue/seat veriable by doing equal assignment.
+ticket = Ticket1.new("MSG","15F")
+ticket.venue = "FH Stadium"
+puts ticket.venue
+# Note that "setting" the veriable looks like assignment.
+# This is a feature of ruby that allows you to end a method name with the equal sign and than calling the method
+# Like pure assignment.
+
+# attributes #
+# Even now creating a getter takes a three lines. Creating a setter takes three lines. If you have many veriables
+# That is a lot of code.
+# In order to create a getter, we can define the names of the veriables after an attr_reader
+# In order to create a setter, we can define the names of the veriables after an attr_writer
+# Let's see an example
+class Ticket2
+  attr_writer :price
+  attr_reader :seat, :venue
+end
+ticket = Ticket2.new
+ticket.price = 100.0
+puts ticket.venue
+# Note that the name of the veriable is a symbol now. A symbol is like a string but not exactly. It is defined
+# by using a colon before the name.
+# We can use attr_accessor to create both getter and setter
+class Ticket3
+  attr_accessor :price, :venue, :seat
+end
+ticket = Ticket3.new
+ticket.price = 100
+puts ticket.price
+
+# Inheritence #
+
+
+
+
+
