@@ -56,3 +56,24 @@ puts t
 require 'time'
 puts t.xmlschema
 
+# Instance Veriables #
+# How do we create veriables that will be bound to the instance of the class and live with it.
+# The solution is to mark a veriable, and this could be done everywhere with the @ sign before the veriable name.
+# We don't and shouldn't define it in the header. Let' see an example
+class Ticket
+  def venue
+    @venue
+  end
+  def set_venue(venue)
+    @venue = venue
+  end
+end
+# In this example, venue is an instance veriable that we can use in our class definition.
+
+# In the class you can define a method called initalize that will be ran whenever a new
+# instance is being created. So for example,
+class Ticket
+  def initialize(venue,seat)
+    @ven
+  end
+end
