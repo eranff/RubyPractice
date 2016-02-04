@@ -59,12 +59,69 @@ end
 # that is the module that was mixed in last is searched first. If not found we are searching in the super class. If
 # not found in the modules mixed in for the super class and so on up until BasicObject.
 module M
-  def
-  report puts "'report' method in module M"
+  def report
+    puts "'report' method in module M"
   end
-end class C
+end
+class C
   include M
 end
 class D < C
 end
-obj = D.new obj.report
+obj = D.new
+obj.report
+# How prepand works. Prepand is similar to include but if you prepered a mixin it will be search before the class for a method
+# rather than after the class in the search path for a method. In essence, it elevate the value of the mixin in the search path.
+# Another important concent is the super. super calls the same method in the hierarchy
+# What is super. In a method if you call super, we are looking in the search path upward for a
+# method with the same name, and call it. Example:
+module M
+  def report
+    puts "'report' method in module M"
+  end
+end
+class C
+  include M
+  def report
+    puts "'report' method in class C"
+    puts "About to trigger the next higher-up report method..."
+    super
+    puts "Back from the 'super' call."
+  end
+end
+c = C.new
+c.report
+# As can be seen from the example, the super resulted in calling report from the mix-in.
+# Another example
+class Bicycle
+  attr_reader :gears, :wheels, :seats
+  def initialize(gears = 1)
+    @wheels = 2
+    @seats = 1
+    @gears = gears
+  end
+end
+class Tandem < Bicycle
+  def initialize(gears)
+    super
+    @seats = 2
+  end
+end
+# In this example, we call super with the right information. What parameters are sent with supper
+# Called with no argument list (empty or otherwise), super automatically forwards the
+# arguments that were passed to the method from which it’s called.
+# Called with an empty argument list—super()—super sends no arguments to the higher-up method,
+# Called with specific arguments—super(a,b,c)—super sends exactly those arguments.
+# even if arguments were passed to the current method.
+
+# The method_missing method. #
+# What happens when you called a method that does not exists? ruby has a method called method_missing
+# this method is being called whenever you make a call to method that does not exists. Example
+o = Object.new
+def o.method_missing(m,*x)
+  puts "Method #{m} is missing"
+end
+o.blah
+# The method missing receieve as an arguments, the method name as a symbol, and the
+# parameters sent to the non-existant function in x.
+
