@@ -136,7 +136,60 @@ ticket.price = 100
 puts ticket.price
 
 # Inheritence #
+# In ruby inheritance is like in Java/ You inherite all methods and veriables. You use the sign < to make the
+# inheritance. Example
+class Publication
+  attr_accessor :publisher
+end
+class Magazine < Publication
+  attr_accessor :editor
+end
+mag = Magazine.new
+mag.publisher = "Hill"
+mag.editor = "Self"
+puts "Publisher: #{mag.publisher}. Editor: #{mag.editor}."
+# In this example magazine is a sub class of the publication. The chain of inhertance can continue on as much as necessary.
+#In order to avoid the diamond problem Ruby allows to inherit from one class only
+# You can see the superclass via the super class method.
+puts Magazine.superclass
+# Note that you get a Class as the result of the call to superclass. It is NOT a string.
+puts Magazine.superclass.superclass
+# The super class of Class is object, the root of all objects.
+# CLass is an object. This idea lead to the ability to add messages to the class.
+# We can add methods to the class itself. This is equvalent to static methods.
+# We can add methods as singelton methods. Example
+def Publication.print_something
+  puts "I am statis method from a singelton"
+end
+puts Publication.print_something
+# We can define a class method inside the class defintion by calling the method classname.method name. For example
+class Tempreatuer_converter
+  def Tempreatuer_converter.c2f(c)
+    c * 9.0 / 5 + 32
+  end
+end
+puts Tempreatuer_converter.c2f(100)
 
+# Constants #
+# Most class contains instance and class methods. Constants are the next step in the class ingrediants
+# Constants are designated by have the first letter Capital, and often the whole word in Capital.
+# Let's see an example
+class Ticketv1
+  VENUES = ["MSG","XYZ"]
+  def initialize(venue)
+    if VENUES.include?(venue)
+      @venue = venue
+    else
+      raise "Venue does not exists"
+    end
+  end
+end
+# You can refer a constant ouside the class using the :: notation
+puts Ticketv1::VENUES
+# You can reassign a contsant but this is not the conventional ruby way
+A = 1
+A = 2
+# As you see an alert is being raised and the program continues.
 
 
 
