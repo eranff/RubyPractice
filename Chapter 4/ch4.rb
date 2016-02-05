@@ -125,3 +125,12 @@ o.blah
 # The method missing receieve as an arguments, the method name as a symbol, and the
 # parameters sent to the non-existant function in x.
 
+# In order to facilitate scoping you can define a class inside a module. We
+# are accessing the class via the colon accessor. For example,
+module M
+  class C
+  end
+end
+c = M::C.new
+puts c
+
